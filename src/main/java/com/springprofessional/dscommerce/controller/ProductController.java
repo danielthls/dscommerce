@@ -17,6 +17,7 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         ProductDTO dto = service.findById(id);
@@ -41,5 +42,11 @@ public class ProductController {
     public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id) {
+       service.delete(id);
+       return ResponseEntity.noContent().build();
     }
 }
