@@ -1,6 +1,7 @@
 package com.springprofessional.dscommerce.controller;
 
 import com.springprofessional.dscommerce.dto.ProductDTO;
+import com.springprofessional.dscommerce.dto.ProductMinDTO;
 import com.springprofessional.dscommerce.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,11 @@ public class ProductController {
         ProductDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
-
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(
+    public ResponseEntity<Page<ProductMinDTO>> findAll(
             @RequestParam(name = "name", defaultValue = "") String name,
             Pageable pageable) {
-        Page<ProductDTO> page = service.findAll(name, pageable);
+        Page<ProductMinDTO> page = service.findAll(name, pageable);
         return ResponseEntity.ok(page);
     }
 
