@@ -1,9 +1,14 @@
 package com.springprofessional.dscommerce.dto;
 
+import com.springprofessional.dscommerce.entities.Category;
 import com.springprofessional.dscommerce.entities.Product;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDTO {
     private Long id;
@@ -16,6 +21,9 @@ public class ProductDTO {
     @Positive(message = "Preço deve ser positivo")
     private Double price;
     private String imgUrl;
+
+    @NotEmpty(message = "Deve ter pelo menos uma categoria")
+    private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO(){}
 
@@ -33,6 +41,10 @@ public class ProductDTO {
         description = product.getDescription();
         price = product.getPrice();
         imgUrl = product.getImgUrl();
+        for (Category cat: product.getCategories()) {
+            CategoryDTO catDTO = new CategoryDTO(cat);
+            categories.add(catDTO);
+        }
     }
     public Long getId() {
         return id;
@@ -72,5 +84,9 @@ public class ProductDTO {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
     }
 }

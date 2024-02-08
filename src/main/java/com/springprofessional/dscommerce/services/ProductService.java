@@ -1,7 +1,9 @@
 package com.springprofessional.dscommerce.services;
 
+import com.springprofessional.dscommerce.dto.CategoryDTO;
 import com.springprofessional.dscommerce.dto.ProductDTO;
 import com.springprofessional.dscommerce.dto.ProductMinDTO;
+import com.springprofessional.dscommerce.entities.Category;
 import com.springprofessional.dscommerce.entities.Product;
 import com.springprofessional.dscommerce.repositories.ProductRepository;
 import com.springprofessional.dscommerce.services.exceptions.DatabaseException;
@@ -72,6 +74,11 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setImgUrl(dto.getImgUrl());
         entity.setPrice(dto.getPrice());
+        entity.getCategories().clear();
+        for (CategoryDTO cat: dto.getCategories()) {
+            Category category = new Category();
+            category.setId(cat.getId());
+            entity.getCategories().add(category);
+        }
     }
-
 }
