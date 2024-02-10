@@ -1,7 +1,6 @@
 package com.springprofessional.dscommerce.controller;
 
 import com.springprofessional.dscommerce.dto.OrderDTO;
-import com.springprofessional.dscommerce.dto.ProductDTO;
 import com.springprofessional.dscommerce.services.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class OrderController {
     @Autowired
     private OrderService service;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENT')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrderDTO> findById(@PathVariable Long id) {
         OrderDTO dto = service.findById(id);
